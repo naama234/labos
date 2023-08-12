@@ -29,7 +29,7 @@ describe('NxtGen AI Academy Demo Site test', () => {
     applicationPage.visit();
   });
 
-  it('should be entered into all fields and field types', () => {
+  it('data can be entered into all fields and field types', () => {
     applicationPage.fillInputAndVerify(applicationPage.firstNameInput, mockFormData.firstName);
     applicationPage.fillInputAndVerify(applicationPage.lastNameInput, mockFormData.lastName);
     applicationPage.selectRadioOptionByValueAndVerify(applicationPage.genderSelector, mockFormData.gender);
@@ -50,12 +50,12 @@ describe('NxtGen AI Academy Demo Site test', () => {
   });
 
 
-  it('Users should not be able to submit the form with missing mandatory fields', () => {
+  it('users should not be able to submit the form with missing mandatory fields', () => {
     applicationPage.getSubmitButton().click();
     applicationPage.validateElementExists(firstNameIsMissingErrorSelector);
   });
 
-  it('Submitting is possible after using the Verification code', () => {
+  it('submitting is possible after using the Verification code', () => {
     applicationPage.populateFormWithMandatoryFields(mockFormData.firstName, mockFormData.lastName, mockFormData.email, mockFormData.gender);
     applicationPage.getSubmitButton().click();
     applicationPage.validateElementExists(verificationCodeErrorSelector)
@@ -64,14 +64,14 @@ describe('NxtGen AI Academy Demo Site test', () => {
     applicationPage.validateElementExists(dynamicTransactionVerificationSelector);
   });
 
-  it('Users should receive Transaction ID after submitting the form', () => {
+  it('users should receive Transaction ID after submitting the form', () => {
     applicationPage.populateFormWithMandatoryFields(mockFormData.firstName, mockFormData.lastName, mockFormData.email, mockFormData.gender);
     applicationPage.setVerificationNumber();
     applicationPage.getSubmitButton().click();
     applicationPage.logTransactionId();
   });
 
-  it('Data sent in the POST request should be accurate', () => {
+  it('data sent in the POST request should be accurate', () => {
     cy.intercept('POST', 'https://nxtgenaiacademy.com/demo-site/').as('postRequest');
     applicationPage.populateFormWithAllFields(mockFormData);
     applicationPage.setVerificationNumber();
